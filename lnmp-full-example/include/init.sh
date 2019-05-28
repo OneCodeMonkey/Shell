@@ -59,3 +59,25 @@ Deb_RemoveAMP()
 	dpkg -P php5 php5-common php5-cli php5-cgi php5-mysql php5-curl php5-gd
 	apt-get autoremove -y && apt-get clean
 }
+
+Disable_Selinux()
+{
+	if [-s /etc/selinux/config]; then
+		sed -i 's/^SELINUX=.*/SELINUX=disabled/g' /etc/selinux/config
+	fi
+}
+
+Xen_Hwcap_Setting()
+{
+	if [-s /etc/ld.so.conf.d/libc6-xen.conf]; then
+		sed -i 's/hwcap 1 nosegneg/hwcap 0 nesegneg/g' /etc/ld.so.conf.d/libc6-xen.conf
+	fi	
+}
+
+Check_Hosts()
+{
+	if grep -Eqi '^127.0.0.1[[:space:]]*localhost' /etc/hosts; then
+		echo "Hosts: ok."
+	else
+		echo "127.0.0.1 localhost.localdomain localhost"	
+}
