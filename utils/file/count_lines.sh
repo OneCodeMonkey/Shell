@@ -5,7 +5,7 @@ line_count() {
 	printf '%s\n' "${#lines[@]}"
 }
 
-# another altertive in bash<=3
+# another alternative in bash<=3
 line_count_2() {
 	# Usage: line_count_2 "file"
 	count = 0
