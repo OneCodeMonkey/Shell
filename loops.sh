@@ -33,3 +33,27 @@ done
 while read -r line; do
 	printf '%s\n' "$line"
 done
+
+# loop over files and directories without command "ls"
+# greedy alternative
+for file in *; do
+	printf '%s\n' "$file"
+done
+# PNG files in dir.
+for file in ~/images/*.png; do
+	printf '%s\n' "$file"
+done
+# Iterator over directories
+for dir in ~/folder_name/*/; do
+	printf '%s\n' "$dir"
+done
+# Brace Expansion
+for file in /path/to/parentdir/{file1, file2, subdir/file3}; do
+	printf '%s\n' "$file"
+done
+# Iterator recursively
+shopt -s globstar
+for file in ~/images/**/*; do
+	printf '%s\n' "$file"
+done
+shopt -u globstar
