@@ -7,7 +7,7 @@ done
 # loop over a variable range of numbers
 # loop from 0-VAR
 VAR=50
-for(( i = 0; i <= VAR; i++)); do
+for (( i = 0; i <= VAR; i++)); do
 	printf '%s\n' "$i"
 done
 
@@ -16,4 +16,15 @@ arr = (apples oranges tomatoes)
 # just elements
 for element in "${arr[@]}"; do
 	printf '%s\n' "$element"
+done
+
+# loop over an array with an index
+arr = (apples oranges tomatoes)
+# elements and index.
+for i in "${!arr[@]}"; do
+	printf '%s\n' "${arr[i]}"
+done
+# another alternative
+for (( i = 0; i < ${#arr[@]}; i++)); do
+	printf '%s\n' "${arr[i]}"
 done
