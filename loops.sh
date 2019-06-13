@@ -10,3 +10,10 @@ VAR=50
 for(( i = 0; i <= VAR; i++)); do
 	printf '%s\n' "$i"
 done
+
+# loop over an array
+arr = (apples oranges tomatoes)
+# just elements
+for element in "${arr[@]}"; do
+	printf '%s\n' "$element"
+done
