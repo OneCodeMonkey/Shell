@@ -4,6 +4,5 @@
 # solution 2
 :>filename
 
-# append
-echo -n >filename
-printf 'aaa' >filename
+# set file content
+echo 'aawerewa' >filename
