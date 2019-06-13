@@ -28,3 +28,8 @@ done
 for (( i = 0; i < ${#arr[@]}; i++)); do
 	printf '%s\n' "${arr[i]}"
 done
+
+# loop over the contents of a file
+while read -r line; do
+	printf '%s\n' "$line"
+done
