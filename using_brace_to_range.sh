@@ -22,3 +22,6 @@ echo {1..10..2}
 
 # array
 echo {apples,pears,bananas}
+
+# remove series of file or folder
+rm -rf ~/foldername/{a.txt,b.txt,c.txt}
