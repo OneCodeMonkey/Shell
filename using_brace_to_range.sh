@@ -19,3 +19,6 @@ echo {01..100}
 # change increment amount
 # for example, increment by 2
 echo {1..10..2}
+
+# array
+echo {apples,pears,bananas}
