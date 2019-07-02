@@ -215,3 +215,17 @@ game_loop() {
 	#signals the input loop that the snake is dead
 	kill -$SIG_DEAD $$
 }
+
+clear_game() {
+	stty echo
+	echo -e "\e[?25h"
+}
+init_game
+init_snake
+give_food
+draw_board
+game_loop &
+game_pid=$!
+getchar
+clear_game
+exit 0
