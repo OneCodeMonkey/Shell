@@ -81,7 +81,7 @@ init_snake() {
 
 	body=''
 	for((i=0; i<length-1; i++)); do
-		body = "1$body"
+		body="1$body"
 	done
 
 	local p=$((${move_r[1]} * (length - 1)))
@@ -95,7 +95,7 @@ init_snake() {
 	prev_r=$head_r
 	prev_c=$head_c
 
-	b = $body
+	b=$body
 	while [ -n "$b" ]; do
 		# change in each direction
 		local p=${move_r[$(echo $b | grep -o '^[0-3]')]}
