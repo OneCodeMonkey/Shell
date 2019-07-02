@@ -46,3 +46,25 @@ init_game() {
 move_and_draw() {
 	echo -ne "\e[${1};${2}H$3"
 }
+
+draw_board() {
+	move_and_draw 1 1 "$border_color+$no_color"
+	for((i = 2; i <= width + 1; i++)); do
+		move_and_draw 1 $i "$border_color-$no_color"
+	done
+	move_and_draw 1 $((width - 2)) "$border_color-$no_color"
+	echo
+
+	for((i = 0; i < height; i++)); do
+		move_and_draw $((i + 2)) 1 "$border_color|$no_color"
+		eval echo -en "\"${arr$i[*]}\""
+		echo -e "$border_color|$no_color"
+	done
+
+	move_and_draw $((height + 2)) 1 "$border_color+$no_color"
+	for((i = 2; i <= width+1 ; i++)); do
+		move_and_draw $((height + 2)) $i "$border_color-$no_color"
+	done
+	move_and_draw $((height + 2)) $((width + 2)) "$border_color+$no_color"
+	echo
+}
