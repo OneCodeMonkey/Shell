@@ -108,3 +108,15 @@ init_snake() {
 		b = ${b#[0-3]}
 	done
 }
+
+# judge if the snake died
+is_dead() {
+	if [ "$1" -lt 0 ] || [ "$1" -ge "$height" ] || [ "$2" -lt 0 ] || [ "$2" -ge "$width" ]; then
+		return 0
+	fi
+	eval "local pos = \${arr$1[$2]}"
+	if [ "$pos" == "${snake_color}o$no_color" ]; then
+		return 0
+	fi
+	return 1
+}
