@@ -133,3 +133,34 @@ give_food() {
 	done
 	eval "arr$food_r[$food_c]=\"$food_color@$no_color\""
 }
+
+move_snake() {
+	local newhead_r = $((head_r + move_r[direction]))
+	local newhead_c = $((head_c + move_c[direction]))
+	eval "local pos=\${arr$newhead_r[$newhead_c]}"
+	if $(is_head $newhead_r $newhead_c); then
+		alive = 1
+		return
+	fi
+	if [ "$pos" == "$food_color@$no_color" ]; then
+		length += 1
+		eval "arr$newhead_r[$newhead_c]=\"${snake_color}o$no_color\""
+		body="$(((direction + 2) % 4))$body"
+		head_r = $newhead_r
+		head_c = $newhead_c
+		score += 1
+		give_food;		# 吃了一个，立即生成下一个食物
+		return
+	fi
+	head_r = $newhead_r
+	head_c = $newhead_c
+	local d = $(echo $body | grep -o '[0-3]$')
+	body = "$(((direction + 2) % 4))${body%[0-3]}"
+	eval "arr$tail_r[$tail_c]=' '"
+	eval "arr$head_r[$head_c]=\"${snake_color}o$no_color\""
+	# 新的尾部
+	local p = ${move_r[(d+2)%4]}
+	local q = ${move_c[(d+2)%4]}
+	tail_r = $((tail_r + p))
+	tail_c = $((tail_c + q))
+}
