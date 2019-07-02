@@ -193,3 +193,25 @@ getchar() {
 		esac
 	done
 }
+
+game_loop() {
+	trap "delta_dir=0;" $SIG_UP
+	trap "delta_dir=1;" $SIG_RIGHT
+	trap "delta_dir=2;" $SIG_DOWN
+	trap "delta_dir=3;" $SIG_LEFT
+	trap "exit 1;" $SIG_QUIT
+	while [ "$alive" -eq 0 ]; do
+		echo -e "\n${text_color}    Your Score: $score $no_color"
+		if [ "$delta_dir" -ne -1 ]; then
+			change_dir $delta_dir
+		fi
+		move_snake
+		draw_board
+		sleep 0.03		# 控制刷新率
+	done
+
+	echo -e "${text_color}Oh, No! You 0xdead$no_color"
+
+	#signals the input loop that the snake is dead
+	kill -$SIG_DEAD $$
+}
