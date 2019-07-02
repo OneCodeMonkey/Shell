@@ -42,3 +42,7 @@ init_game() {
 		done
 	done
 }
+
+move_and_draw() {
+	echo -ne "\e[${1};${2}H$3"
+}
