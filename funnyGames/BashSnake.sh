@@ -201,7 +201,8 @@ game_loop() {
 	trap "delta_dir=3;" $SIG_LEFT
 	trap "exit 1;" $SIG_QUIT
 	while [ "$alive" -eq 0 ]; do
-		echo -e "\n${text_color}    Your Score: $score $no_color"
+		echo -e "\n${text_color}    玩法：键盘控制方向，K(↑) J(↓) L(→) H(←)."
+		echo -e "\n${text_color}    当 前 得 分: $score $no_color"
 		if [ "$delta_dir" -ne -1 ]; then
 			change_dir $delta_dir
 		fi
@@ -210,7 +211,7 @@ game_loop() {
 		sleep 0.03		# 控制刷新率
 	done
 
-	echo -e "${text_color}Oh, No! You 0xdead$no_color"
+	echo -e "${text_color}Oh, No! You are dead$no_color"
 
 	#signals the input loop that the snake is dead
 	kill -$SIG_DEAD $$
