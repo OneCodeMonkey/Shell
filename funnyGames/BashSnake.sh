@@ -27,3 +27,18 @@ SIG_DOWN = URG
 SIG_LEFT = IO
 SIG_QUIT = WINCH
 SIG_DEAD = HUP
+
+# direction arrays: 0 = up, 1 = right, 2 = down, 3 = left
+move_r = ([0]=-1 [1]=0 [2]=1 [3]=0)
+move_c = ([0]=0 [1]=1 [2]=0 [3]=-1)
+
+init_game() {
+	clear
+	echo -ne "\e[?251"
+	stty -echo
+	for((i = 0; i < height; i++)); do
+		for((j = 0; j < width; j++)); do
+			eval "arr$i[$j]=' '"
+		done
+	done
+}
