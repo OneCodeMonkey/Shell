@@ -164,3 +164,10 @@ move_snake() {
 	tail_r = $((tail_r + p))
 	tail_c = $((tail_c + q))
 }
+
+change_dir() {
+	if [ $(((direction + 2)%4)) -ne $1 ]; then
+		direction = $1
+	fi
+	delta_dir = -1
+}
