@@ -52,20 +52,20 @@ draw_board() {
 	for((i=2; i<=width+1; i++)); do
 		move_and_draw 1 $i "$border_color-$no_color"
 	done
-	move_and_draw 1 $((width - 2)) "$border_color-$no_color"
+	move_and_draw 1 $((width+2)) "$border_color-$no_color"
 	echo
 
 	for((i=0; i<height; i++)); do
-		move_and_draw $((i + 2)) 1 "$border_color|$no_color"
-		eval echo -en "\"${arr$i[*]}\""
+		move_and_draw $((i+2)) 1 "$border_color|$no_color"
+		eval echo -en "\"\${arr$i[*]}\""
 		echo -e "$border_color|$no_color"
 	done
 
-	move_and_draw $((height + 2)) 1 "$border_color+$no_color"
+	move_and_draw $((height+2)) 1 "$border_color+$no_color"
 	for((i=2; i<=width+1 ; i++)); do
-		move_and_draw $((height + 2)) $i "$border_color-$no_color"
+		move_and_draw $((height+2)) $i "$border_color-$no_color"
 	done
-	move_and_draw $((height + 2)) $((width + 2)) "$border_color+$no_color"
+	move_and_draw $((height+2)) $((width+2)) "$border_color+$no_color"
 	echo
 }
 
@@ -76,21 +76,21 @@ init_snake() {
 	direction=0
 	delta_dir=-1
 
-	head_r=$((height / 2 - 2))
-	head_c=$((width / 2))
+	head_r=$((height/2-2))
+	head_c=$((width/2))
 
 	body=''
 	for((i=0; i<length-1; i++)); do
 		body="1$body"
 	done
 
-	local p=$((${move_r[1]} * (length - 1)))
-	local q=$((${move_c[1]} * (length - 1)))
+	local p=$((${move_r[1]} * (length-1)))
+	local q=$((${move_c[1]} * (length-1)))
 
-	tail_r=$((head_r + p))
-	tail_c=$((head_c + q))
+	tail_r=$((head_r+p))
+	tail_c=$((head_c+q))
 
-	eval "arr$head_r[$head_c] = \"${snake_color}o$no_color\""
+	eval "arr$head_r[$head_c]=\"${snake_color}o$no_color\""
 
 	prev_r=$head_r
 	prev_c=$head_c
@@ -100,8 +100,8 @@ init_snake() {
 		# change in each direction
 		local p=${move_r[$(echo $b | grep -o '^[0-3]')]}
 		local q=${move_c[$(echo $b | grep -o '^[0-3]')]}
-		new_r=$((prev_r + p))
-		new_c=$((prev_c + q))
+		new_r=$((prev_r+p))
+		new_c=$((prev_c+q))
 		eval "arr$new_r[$new_c]=\"${snake_color}o$no_color\""
 		prev_r=$new_r
 		prev_c=$new_c
@@ -145,7 +145,7 @@ move_snake() {
 	if [ "$pos" == "$food_color@$no_color" ]; then
 		length+=1
 		eval "arr$newhead_r[$newhead_c]=\"${snake_color}o$no_color\""
-		body="$(((direction + 2) % 4))$body"
+		body="$(((direction+2) % 4))$body"
 		head_r=$newhead_r
 		head_c=$newhead_c
 		score+=1
@@ -155,18 +155,18 @@ move_snake() {
 	head_r=$newhead_r
 	head_c=$newhead_c
 	local d=$(echo $body | grep -o '[0-3]$')
-	body="$(((direction + 2) % 4))${body%[0-3]}"
+	body="$(((direction+2) % 4))${body%[0-3]}"
 	eval "arr$tail_r[$tail_c]=' '"
 	eval "arr$head_r[$head_c]=\"${snake_color}o$no_color\""
 	# 新的尾部
 	local p=${move_r[(d+2)%4]}
 	local q=${move_c[(d+2)%4]}
-	tail_r=$((tail_r + p))
-	tail_c=$((tail_c + q))
+	tail_r=$((tail_r+p))
+	tail_c=$((tail_c+q))
 }
 
 change_dir() {
-	if [ $(((direction + 2)%4)) -ne $1 ]; then
+	if [ $(((direction+2)%4)) -ne $1 ]; then
 		direction=$1
 	fi
 	delta_dir=-1
