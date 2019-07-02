@@ -171,3 +171,25 @@ change_dir() {
 	fi
 	delta_dir = -1
 }
+
+# get keyboard input
+getchar() {
+	trap "" SIGINT SIGQUIT
+	trap "return;" $SIG_DEAD
+	while true; do
+		read -s -n 1 key
+		case "$key" in
+			[qQ]) kill -$SIG_QUIT $game_pid
+				return
+				;;
+			[kK]) kill -$SIG_UP $game_pid
+				;;
+			[lL]) kill -$SIG_RIGHT $game_pid
+				;;
+			[jJ]) kill -$SIG_DOWN $game_pid
+				;;
+			[hH]) kill -$SIG_LEFT $game_pid
+				;;
+		esac
+	done
+}
