@@ -138,7 +138,7 @@ move_snake() {
 	local newhead_r=$((head_r + move_r[direction]))
 	local newhead_c=$((head_c + move_c[direction]))
 	eval "local pos=\${arr$newhead_r[$newhead_c]}"
-	if $(is_head $newhead_r $newhead_c); then
+	if $(is_dead $newhead_r $newhead_c); then
 		alive=1
 		return
 	fi
