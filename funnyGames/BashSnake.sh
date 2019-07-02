@@ -120,3 +120,16 @@ is_dead() {
 	fi
 	return 1
 }
+
+# generate food at random pos
+give_food() {
+	local food_r = $((RANDOM % height))
+	local fodd_c = $((RANDOM % width))
+	eval "local pos=\${arr$food_r[$fodd_c]}"
+	while [ "$pos" != ' ' ]; do
+		food_r = $((RANDOM % height))
+		food_c = $((RANDOM % width))
+		eval "pos=\${arr$food_r[$food_c]}"
+	done
+	eval "arr$food_r[$food_c]=\"$food_color@$no_color\""
+}
