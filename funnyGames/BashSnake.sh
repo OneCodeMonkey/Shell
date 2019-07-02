@@ -68,3 +68,19 @@ draw_board() {
 	move_and_draw $((height + 2)) $((width + 2)) "$border_color+$no_color"
 	echo
 }
+
+# set the snake's initial state
+init_snake() {
+	alive = 0
+	length = 10
+	direction = 0
+	delta_dir = -1
+
+	head_r = $((height / 2 - 2))
+	head_c = $((width / 2))
+
+	body = ''
+	for((i = 0; i < length - 1; i++)); do
+		body = "1$body"
+	done
+}
