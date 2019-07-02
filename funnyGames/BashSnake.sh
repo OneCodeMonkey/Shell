@@ -125,7 +125,7 @@ is_dead() {
 give_food() {
 	local food_r=$((RANDOM % height))
 	local fodd_c=$((RANDOM % width))
-	eval "local pos=\${arr$food_r[$fodd_c]}"
+	eval "local pos=\${arr$food_r[$food_c]}"
 	while [ "$pos" != ' ' ]; do
 		food_r=$((RANDOM % height))
 		food_c=$((RANDOM % width))
