@@ -83,4 +83,28 @@ init_snake() {
 	for((i = 0; i < length - 1; i++)); do
 		body = "1$body"
 	done
+
+	local p = $((${move_r[1]} * (length - 1)))
+	local q = $((${move_c[1]} * (length - 1)))
+
+	tail_r = $((head_r + p))
+	tail_c = $((head_c + q))
+
+	eval "arr$head_r[$head_c] = \"${snake_color}o$no_color\""
+
+	prev_r = $head_r
+	prev_c = $head_c
+
+	b = $body
+	while [ -n "$b" ]; do
+		# change in each direction
+		local p = ${move_r[$(echo $b | grep -o '^[0-3]')]}
+		local q = ${move_c[$(echo $b | grep -o '^[0-3]')]}
+		new_r = $((prev_r + p))
+		new_c = $((prev_c + q))
+		eval "arr$new_r[$new_c]=\"${snake_color}o$no_color\""
+		prev_r = $new_r
+		prev_c = $new_c
+		b = ${b#[0-3]}
+	done
 }
